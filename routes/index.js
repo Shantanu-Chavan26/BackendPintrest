@@ -13,11 +13,14 @@ passport.deserializeUser(userModel.deserializeUser());
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  
   res.render('index');
 });
 
 router.get('/login', function(req, res, next) {
-  res.render('login');
+  res.render('login',{error:req.flash('error')});
+
+
 });
 
 router.get('/feed', function(req, res, next) {
@@ -25,8 +28,15 @@ router.get('/feed', function(req, res, next) {
 });
 
 
-router.get('/profile', isLoggedIn, function(req, res, next) {
-  res.render('profile');
+router.get('/profile', isLoggedIn, async function(req, res, next) {
+  const user = await userModel.findOne({
+
+    // saves the user name here
+    username: req.session.passport.user
+  })
+ 
+
+  res.render('profile',{user});
 });
 
 // Register route
@@ -47,8 +57,9 @@ router.post('/register', function(req, res) {
 
 // Login route
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/feed',
-  failureRedirect: '/login'
+  successRedirect: '/profile',
+  failureRedirect: '/login' , 
+  failureFlash: true 
 }), function(req, res) {});
 
 router.get('/logout', function(req, res) {
