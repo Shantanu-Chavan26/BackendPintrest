@@ -17,7 +17,7 @@
 			</svg>
 			<img class="profile-pic" src="https://images.unsplash.com/photo-1536164261511-3a17e671d380?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2OTIwMTg0NjZ8&ixlib=rb-4.0.3&q=80&w=400" alt="This is a profile of a dog">
 			<h1><%= user.username %></h1>
-			<h2>@<%= user.username %></h2>
+			<h2>@<%= user.fullname %></h2>
 			<h3>Welcome to Pintrest!</h3>
 			
 			<div class="social-media">
@@ -39,6 +39,12 @@
 				
 				<a href="/logout">Log Out</a>
 			</div>
+			<form action="/uploads" ,method="post" enctype="multipart/form-data">
+					
+				<input type="file" name="file">
+				<button type="submit">Upload</button>
+
+			</form>
 		</div>
 	</div>
 </body>
